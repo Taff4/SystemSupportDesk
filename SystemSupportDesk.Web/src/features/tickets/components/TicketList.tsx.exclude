@@ -1,0 +1,84 @@
+import { Search } from 'lucide-react';
+import type { Chamado } from '../../../types/types';
+
+interface TicketListProps {
+    chamados: Chamado[];
+    selectedId: number | undefined;
+    onSelect: (chamado: Chamado) => void;
+    loading: boolean;
+}
+
+export function TicketList({ chamados, selectedId, onSelect, loading }: TicketListProps) {
+    return (
+        // CORREÇÃO: Removido 'md:w-80'. Agora é sempre w-full para preencher o painel resizável.
+        <div className="w-full h-full flex flex-col bg-light-surface dark:bg-dark-surface z-10">
+
+            <div className="p-4 border-b border-light-border dark:border-dark-border shrink-0">
+                <h2 className="font-bold mb-3 text-light-text dark:text-dark-text">Tickets</h2>
+                <div className="relative">
+                    <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
+                    <input
+                        type="text"
+                        placeholder="Buscar..."
+                        className="w-full pl-9 pr-4 py-2 rounded border text-sm focus:ring-1 focus:ring-primary outline-none bg-light-bg dark:bg-dark-bg border-light-border dark:border-dark-border text-light-text dark:text-dark-text"
+                    />
+                </div>
+                <div className="flex gap-2 mt-3 overflow-x-auto pb-1 no-scrollbar">
+                    <button className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20 whitespace-nowrap">Meus Tickets</button>
+                    <button className="px-3 py-1 border border-light-border dark:border-dark-border text-xs text-gray-500 font-medium rounded-full whitespace-nowrap">Abertos</button>
+                </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+                {loading ? (
+                    <div className="p-8 text-center text-xs text-gray-400">Carregando...</div>
+                ) : chamados.map(ticket => (
+                    <div
+                        key={ticket.id}
+                        onClick={() => onSelect(ticket)}
+                        onKeyDown={(e) => e.key === 'Enter' && onSelect(ticket)}
+                        role="button"
+                        tabIndex={0}
+                        className={`p-4 border-b border-light-border dark:border-dark-border cursor-pointer relative transition-colors 
+                        hover:bg-gray-50 dark:hover:bg-gray-800 outline-none
+                        ${selectedId === ticket.id ? 'bg-primary/5 dark:bg-primary/10' : ''}`}
+                    >
+                        {selectedId === ticket.id && <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>}
+
+                        <div className="flex justify-between items-start mb-1">
+                            <span className={`font-bold text-sm truncate w-40 text-light-text dark:text-dark-text ${selectedId === ticket.id ? 'text-primary dark:text-primary' : ''}`}>
+                                {ticket.titulo}
+                            </span>
+                            <span className="text-[10px] text-gray-400 whitespace-nowrap">
+                                {new Date(ticket.dataAbertura).toLocaleDateString()}
+                            </span>
+                        </div>
+
+                        <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 h-8 leading-tight">
+                            {ticket.descricao}
+                        </p>
+
+                        <div className="flex items-center gap-2">
+                            <span className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-[10px] font-bold shrink-0">
+                                {ticket.autor?.nome ? ticket.autor.nome.charAt(0) : 'U'}
+                            </span>
+                            <span className="text-[10px] truncate max-w-[100px] text-gray-500 dark:text-gray-400">
+                                {ticket.autor?.nome}
+                            </span>
+
+                            <span className="ml-auto text-[10px] px-2 py-0.5 rounded border border-light-border dark:border-dark-border bg-gray-50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-300 font-medium">
+                                {ticket.status}
+                            </span>
+                        </div>
+                    </div>
+                ))}
+
+                {chamados.length === 0 && !loading && (
+                    <div className="flex flex-col items-center justify-center h-40 text-gray-400 opacity-50">
+                        <p className="text-sm">Nenhum ticket encontrado</p>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}

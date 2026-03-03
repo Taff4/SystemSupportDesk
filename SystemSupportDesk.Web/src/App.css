@@ -1,0 +1,22 @@
+﻿/* 
+   App.css limpo para não conflitar com Tailwind.
+   Removemos max-width, margin e text-align que centralizavam o site.
+*/
+
+#root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Animações globais podem ficar aqui */
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

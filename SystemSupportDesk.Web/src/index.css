@@ -1,0 +1,82 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === LAYOUT FIX: Garante que o app ocupe a tela toda === */
+/* Isso é crucial para o Dashboard não ter barras brancas indesejadas */
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* O scroll é gerenciado apenas pelos containers internos (main) */
+}
+
+/* Reset e Padrões Globais */
+body {
+    @apply font-sans antialiased transition-colors duration-200 bg-light-bg text-light-text;
+    /* Previne o "bounce" (efeito elástico) no iOS/Mac ao rolar até o fim */
+    overscroll-behavior-y: none;
+    /* Deixa a fonte mais nítida e profissional */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.dark body {
+    @apply bg-dark-bg text-dark-text;
+}
+
+/* === Animações === */
+/* Adicionado para que o 'animate-fadeIn' usado nos componentes funcione */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* === Scrollbar Personalizada (Fina e Elegante) === */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px; /* Altura para scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+    transition: background-color 0.2s;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-gray-400 dark:bg-gray-600;
+    }
+
+/* === Seleção de Texto === */
+/* Dá um toque de marca quando o usuário seleciona o texto */
+::selection {
+    @apply bg-primary/20 text-primary;
+}
+
+/* === Utilitários === */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

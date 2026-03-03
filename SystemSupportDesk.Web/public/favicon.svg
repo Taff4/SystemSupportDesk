@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo Roxo Arredondado (Kovia Primary) -->
+  <rect width="512" height="512" rx="128" fill="#7C3AED" />
+  
+  <!-- Texto KV Centralizado -->
+  <text 
+    x="50%" 
+    y="50%" 
+    font-family="'Inter', sans-serif" 
+    font-weight="bold" 
+    font-size="250" 
+    fill="white" 
+    text-anchor="middle" 
+    dominant-baseline="central"
+    dy="10"
+  >
+    KV
+  </text>
+</svg>

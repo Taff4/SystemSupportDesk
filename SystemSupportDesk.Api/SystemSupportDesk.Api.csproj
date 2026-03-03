@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- AUTENTICAÇÃO E EF CORE DESIGN NA VERSÃO 10.0.0 -->
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+
+		<!-- SWAGGER (Versões estáveis compatíveis) -->
+		<PackageReference Include="Microsoft.OpenApi" Version="1.6.14" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- CONEXÃO COM TODAS AS CAMADAS -->
+		<ProjectReference Include="..\SystemSupportDesk.Application\SystemSupportDesk.Application.csproj" />
+		<ProjectReference Include="..\SystemSupportDesk.Domain\SystemSupportDesk.Domain.csproj" />
+		<ProjectReference Include="..\SystemSupportDesk.Infrastructure\SystemSupportDesk.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>
